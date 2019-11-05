@@ -3,12 +3,13 @@ package com.anwesh.uiprojects.linkedbouncytview
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import com.anwesh.uiprojects.bouncytview.BouncyTView
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        BouncyTView.create(this)
         fullScreen()
     }
 }
