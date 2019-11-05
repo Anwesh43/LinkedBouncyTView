@@ -209,4 +209,13 @@ class BouncyTView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : BouncyTView {
+            val view : BouncyTView = BouncyTView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
