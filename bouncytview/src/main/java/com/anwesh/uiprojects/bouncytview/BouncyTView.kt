@@ -27,7 +27,7 @@ fun Float.divideScale(i : Int, n : Int) : Float = Math.min(n.inverse(), maxScale
 fun Float.sinify() : Float = Math.sin(Math.PI * this).toFloat()
 
 fun Canvas.drawBouncyT(size : Float, h : Float, scale : Float, paint : Paint) {
-    val y : Float = h * 0.4f
+    val y : Float = h * hFactor
     val sf : Float = scale.sinify()
     drawLine(0f, 0f, 0f, -h / 2, paint)
     save()
@@ -59,15 +59,16 @@ fun Canvas.drawBTNode(i : Int, scale : Float, paint : Paint) {
 class BouncyTView(ctx : Context) : View(ctx) {
 
     private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val renderer : Renderer = Renderer(this)
 
     override fun onDraw(canvas : Canvas) {
-
+        renderer.render(canvas, paint)
     }
 
     override fun onTouchEvent(event : MotionEvent) : Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-
+                renderer.handleTap()
             }
         }
         return true
