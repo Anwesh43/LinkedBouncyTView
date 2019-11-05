@@ -186,4 +186,26 @@ class BouncyTView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : BouncyTView) {
+
+        private val bouncyT : BouncyT = BouncyT(0)
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            bouncyT.draw(canvas, paint)
+            animator.animate {
+                bouncyT.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            bouncyT.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
