@@ -25,18 +25,19 @@ fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
 fun Float.divideScale(i : Int, n : Int) : Float = Math.min(n.inverse(), maxScale(i, n)) * n
 fun Float.sinify() : Float = Math.sin(Math.PI * this).toFloat()
+fun Float.cosify() : Float = 1 - Math.sin(Math.PI / 2 + (Math.PI / 2) * this).toFloat()
 
 fun Canvas.drawBouncyT(size : Float, h : Float, scale : Float, paint : Paint) {
     val y : Float = h * hFactor
     val sf : Float = scale.sinify()
-    drawLine(0f, 0f, 0f, -h / 2, paint)
+    drawLine(0f, h, 0f, h / 2, paint)
     save()
     translate(0f, h / 2)
     drawLine(0f, 0f, 0f, -y * sf, paint)
-    val sc1 : Float = sf.divideScale(0, 2)
-    val sc2 : Float = sf.divideScale(1, 2)
+    val sc1 : Float = scale.divideScale(0, 2)
+    val sc2 : Float = scale.divideScale(1, 2).cosify()
     save()
-    translate(0f, -y * sc2)
+    translate(0f, -y * (1 - sc2))
     drawLine(-size * sc1, 0f, size * sc1, 0f, paint)
     restore()
     restore()
